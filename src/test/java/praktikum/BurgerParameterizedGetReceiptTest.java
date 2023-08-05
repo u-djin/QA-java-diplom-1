@@ -7,6 +7,8 @@ import org.junit.runners.Parameterized;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
+
 import static org.junit.Assert.*;
 
 @RunWith(Parameterized.class)
@@ -26,6 +28,7 @@ public class BurgerParameterizedGetReceiptTest {
         this.ingredientsCount = ingredientsCount;
     }
 
+    @Spy
     Burger burger = new Burger();
 
     @Before
@@ -58,5 +61,6 @@ public class BurgerParameterizedGetReceiptTest {
         // конечный рецепт
         expectedReceipt = String.format(expectedReceipt, bunName, ingredientReceipt, bunName);
         assertEquals("Рецепты не совпадают", expectedReceipt, burger.getReceipt());
+        Mockito.verify(burger, Mockito.times(1)).getPrice();
     }
 }
